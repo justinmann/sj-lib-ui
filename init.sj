@@ -2,7 +2,7 @@
 #include(<emscripten.h>, EMSCRIPTEN)
 #include(<emscripten/html5.h>, EMSCRIPTEN)
 #include(<SDL.h>, EMSCRIPTEN)
-#include(<SDL.h>, WIN32)
+#include(<SDL2/SDL.h>, WIN32)
 #include(<SDL2/SDL.h>, __APPLE__)
 #include(<OpenGL/gl.h>, __APPLE__)
 #include(<GLES3/gl3.h>, EMSCRIPTEN)
