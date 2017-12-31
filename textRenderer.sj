@@ -2,14 +2,14 @@ textRenderer(
     text : 'string
     point : 'point
     color : 'color
-    font : 'font
+    font : 'heap font
     --cvar--
     vertex_buffer_t* buffer;
     --cvar--
 
     render(scene : 'scene2d)'void {
         --c--
-        glBindTexture(GL_TEXTURE_2D, _parent->font.atlas->id);
+        glBindTexture(GL_TEXTURE_2D, _parent->font->atlas->id);
         --c--
         glUseProgram(textShader);
         glBlendFunc(glBlendFuncType.GL_SRC_ALPHA, glBlendFuncType.GL_ONE_MINUS_SRC_ALPHA)
@@ -28,10 +28,10 @@ textRenderer(
     vec4 color = {{ _this->color.r, _this->color.g, _this->color.b, _this->color.a }};
 
     _this->buffer = vertex_buffer_new("vertex:3f,tex_coord:2f,color:4f");
-    add_text(_this->buffer, _this->font.font, (char*)_this->text.data.data, _this->text.count, &color, &pen);
+    add_text(_this->buffer, _this->font->font, (char*)_this->text.data.data, _this->text.count, &color, &pen);
 
-    glBindTexture(GL_TEXTURE_2D, _this->font.font->atlas->id);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, (int)_this->font.font->atlas->width, (int)_this->font.font->atlas->height, 0, GL_RGB, GL_UNSIGNED_BYTE, _this->font.font->atlas->data );
+    glBindTexture(GL_TEXTURE_2D, _this->font->font->atlas->id);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, (int)_this->font->font->atlas->width, (int)_this->font->font->atlas->height, 0, GL_RGB, GL_UNSIGNED_BYTE, _this->font->font->atlas->data );
     --c--
     this 
 } copy {
