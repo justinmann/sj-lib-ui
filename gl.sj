@@ -126,7 +126,7 @@ glPushViewport(rect : 'rect, sceneRect : 'rect) {
     newRect : rect(rect.x, sceneRect.h - (rect.y + rect.h), rect.w, rect.h)
     glViewports.add(newRect)
     --c--
-    glViewport(sjv_newrect.x, sjv_newrect.y, sjv_newrect.w, sjv_newrect.h);
+    glViewport(newrect.x, newrect.y, newrect.w, newrect.h);
     --c--
 }
 
@@ -138,7 +138,7 @@ glPopViewport(rect : 'rect, sceneRect : 'rect) {
     glViewports.removeAt(glViewports.count - 1)
     newRect : if glViewports.count > 0 { glViewports[glViewports.count - 1] } else { rect() }
     --c--
-    glViewport(sjv_newrect.x, sjv_newrect.y, sjv_newrect.w, sjv_newrect.h);
+    glViewport(newrect.x, newrect.y, newrect.w, newrect.h);
     --c--
 }
 
@@ -158,7 +158,7 @@ glPopFramebuffer(framebuffer : 'framebuffer) {
     glFrameBuffers.removeAt(glFrameBuffers.count - 1)
     id : if glFrameBuffers.count > 0 { glFrameBuffers[glFrameBuffers.count - 1] } else { 0u }
     --c--
-    glBindFramebuffer(GL_FRAMEBUFFER, sjv_id);
+    glBindFramebuffer(GL_FRAMEBUFFER, id);
     --c--
 }
 
@@ -208,7 +208,7 @@ glUniformF32(loc : 'i32, v : 'f32) {
 glGenFramebuffer(size : 'size)'framebuffer {
     id := 0u
     --c--
-    glGenFramebuffers(1, &sjv_id);
+    glGenFramebuffers(1, &id);
     --c--
     framebuffer(size, id)
 }
@@ -216,7 +216,7 @@ glGenFramebuffer(size : 'size)'framebuffer {
 glGenTexture(size: 'size)'texture {
     id := 0u
     --c--
-    glGenTextures(1, &sjv_id);
+    glGenTextures(1, &id);
     --c--
     texture(size, id)
 }
@@ -242,7 +242,7 @@ glFramebufferTexture2D(attachment : 'glFramebufferAttachment, target : 'glFrameb
 glGenRenderbuffer(size: 'size) {
     id := 0u
     --c--
-    glGenRenderbuffers(1, &sjv_id); 
+    glGenRenderbuffers(1, &id); 
     --c--
     renderbuffer(size, id)
 }
@@ -262,7 +262,7 @@ glFramebufferRenderbuffer(attachment : 'glFramebufferAttachment, renderbuffer : 
 glCheckFramebufferStatus()'glFramebufferStatus {
     status := glFramebufferStatus.GL_FRAMEBUFFER_UNSUPPORTED
     --c--
-    sjv_status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+    status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
     --c--
     status
 }

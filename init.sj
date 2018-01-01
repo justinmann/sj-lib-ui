@@ -8,7 +8,6 @@
 #include(<GLES3/gl3.h>, EMSCRIPTEN)
 #include(<float.h>)
 ##ifdef WIN32
-##pragma warning(disable:4996)
 ##define GLEW_STATIC
 ##include <windows.h>
 ##include <GL/glew.h>

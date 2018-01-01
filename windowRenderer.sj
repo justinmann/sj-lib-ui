@@ -8,7 +8,7 @@ windowRenderer(
         w := 0
         h := 0
         --c--
-        SDL_GetRendererOutputSize(_parent->ren, &sjv_w, &sjv_h);
+        SDL_GetRendererOutputSize(_parent->ren, &w, &h);
         --c--
         size(w, h)
     }

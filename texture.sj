@@ -38,7 +38,7 @@ texture_fromPng(fileName : 'string) {
     w := 0
     h := 0
     --c--
-    sjv_id = png_texture_load((char*)filename->data.data, &sjv_w, &sjv_h);
+    id = png_texture_load((char*)filename->data.data, &w, &h);
     --c--
     texture(size(w, h), id)
 }

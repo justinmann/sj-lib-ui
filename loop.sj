@@ -9,7 +9,7 @@ mainLoop() {
     shouldAppContinue := true
     ticks := 0
     --c--
-    sjv_ticks = SDL_GetTicks();
+    ticks = SDL_GetTicks();
     --c--
     animator.nextFrame(ticks)
 
@@ -46,28 +46,28 @@ mainLoop() {
         --c--
         switch (e.type) {
             case SDL_QUIT:
-                sjv_shouldappcontinue = false;
+                shouldappcontinue = false;
                 break;
             case SDL_MOUSEBUTTONDOWN:
-                sjv_mouse_eventtype.isvalid = true;
-                sjv_mouse_eventtype.value = sjv_mouseeventtype_down;
-                sjv_mouse_x = e.button.x;
-                sjv_mouse_y = e.button.y;
-                sjv_mouse_isleftdown = e.button.state & SDL_BUTTON(SDL_BUTTON_LEFT);
+                mouse_eventtype.isvalid = true;
+                mouse_eventtype.value = g_mouseeventtype_down;
+                mouse_x = e.button.x;
+                mouse_y = e.button.y;
+                mouse_isleftdown = e.button.state & SDL_BUTTON(SDL_BUTTON_LEFT);
                 break;
             case SDL_MOUSEBUTTONUP:
-                sjv_mouse_eventtype.isvalid = true;
-                sjv_mouse_eventtype.value = sjv_mouseeventtype_up;
-                sjv_mouse_x = e.button.x;
-                sjv_mouse_y = e.button.y;
-                sjv_mouse_isleftdown = e.button.state & SDL_BUTTON(SDL_BUTTON_LEFT);
+                mouse_eventtype.isvalid = true;
+                mouse_eventtype.value = g_mouseeventtype_up;
+                mouse_x = e.button.x;
+                mouse_y = e.button.y;
+                mouse_isleftdown = e.button.state & SDL_BUTTON(SDL_BUTTON_LEFT);
                 break;
             case SDL_MOUSEMOTION:
-                sjv_mouse_eventtype.isvalid = true;
-                sjv_mouse_eventtype.value = sjv_mouseeventtype_move;
-                sjv_mouse_x = e.motion.x;
-                sjv_mouse_y = e.motion.y;
-                sjv_mouse_isleftdown = SDL_GetGlobalMouseState(0, 0) & SDL_BUTTON(SDL_BUTTON_LEFT);
+                mouse_eventtype.isvalid = true;
+                mouse_eventtype.value = g_mouseeventtype_move;
+                mouse_x = e.motion.x;
+                mouse_y = e.motion.y;
+                mouse_isleftdown = SDL_GetGlobalMouseState(0, 0) & SDL_BUTTON(SDL_BUTTON_LEFT);
                 break;
         }
         --c--
@@ -106,7 +106,7 @@ runLoop() {
     emscripten_set_main_loop((em_callback_func)sjf_mainloop, 0, 0);
     exit(0);
 ##else
-    while (sjv_mainloop_shouldcontinue) {
+    while (g_mainloop_shouldcontinue) {
         #functionStack(mainLoop)();
     }
 ##endif 

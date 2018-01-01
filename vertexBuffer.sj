@@ -22,7 +22,7 @@ vertexBuffer!vertex(
     getVertexSize()'i32 {
         size := 0
         --c--
-        sjv_size = _this->buffer->vertices->size;
+        size = _this->buffer->vertices->size;
         --c--
         size
     }
@@ -112,7 +112,7 @@ vertexBuffer!vertex(
         char* buffer = t;
         #type(vertex)* p = (#type(vertex)*)_this->vertices.data;
         for (int i = 0; i < _this->vertices.count; i++) {
-            #functionStack(vertex, rawCopy)(&p[i], buffer, &buffer);
+            #functionStack(vertex, rawCopy)(&p[i], buffer, (void*)&buffer);
         }
         vertex_buffer_push_back_vertices(_this->buffer, t, _this->vertices.count);
         free(t);
@@ -667,8 +667,8 @@ vertex_buffer_print( vertex_buffer_t * self )
 
     assert(self);
 
-    fprintf( stderr, "%zu vertices, %zu indices\n",
-             vector_size( self->vertices ), vector_size( self->indices ) );
+    fprintf( stderr, "%d vertices, %d indices\n",
+             (int)vector_size( self->vertices ), (int)vector_size( self->indices ) );
     while( self->attributes[i] )
     {
         int j = 8;

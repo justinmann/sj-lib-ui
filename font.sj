@@ -43,9 +43,9 @@ font(
         h := 0
         id := 0u
         --c--
-        sjv_w = _parent->atlas->width;
-        sjv_h = _parent->atlas->height;
-        sjv_id = _parent->atlas->id;
+        w = _parent->atlas->width;
+        h = _parent->atlas->height;
+        id = _parent->atlas->id;
         --c--
         texture(size(w, h), id)
     }
@@ -55,8 +55,8 @@ font(
         h := 0
         --c--
         vec2 size = get_text_size(_parent->font, (char*)str->data.data);
-        sjv_w = (int)size.x;
-        sjv_h = (int)size.y;
+        w = (int)size.x;
+        h = (int)size.y;
         --c--
         size(w, h)
     }

@@ -177,12 +177,12 @@ vertexBuffer_loadObj(filename : 'string) {
             }
 
             for (int j = 0; j < 3; j++) {
-                sjv_index = data.face_list[i]->vertex_index[j];
+                index = data.face_list[i]->vertex_index[j];
                 if (data.face_list[i]->vertex_index[j] != data.face_list[i]->normal_index[j]) {
-                    sjv_includenormals = false;
+                    includenormals = false;
                 }
                 if (data.face_list[i]->vertex_index[j] != data.face_list[i]->texture_index[j]) {
-                    sjv_includetextures = false;
+                    includetextures = false;
                 }
     --c--
                 indices.add(index)
@@ -191,27 +191,27 @@ vertexBuffer_loadObj(filename : 'string) {
         }
 
         if (data.vertex_count != data.vertex_normal_count) {
-            sjv_includenormals = false;
+            includenormals = false;
         }
 
         if (data.vertex_count != data.vertex_texture_count) {
-            sjv_includetextures = false;
+            includetextures = false;
         }
 
         for (int i = 0; i < data.vertex_count; i++) {
-            sjv_location.x = (float)data.vertex_list[i]->e[0];
-            sjv_location.y = (float)data.vertex_list[i]->e[1];
-            sjv_location.z = (float)data.vertex_list[i]->e[2];
+            location.x = (float)data.vertex_list[i]->e[0];
+            location.y = (float)data.vertex_list[i]->e[1];
+            location.z = (float)data.vertex_list[i]->e[2];
 
-            if (sjv_includenormals) {
-                sjv_normal.x = (float)data.vertex_normal_list[i]->e[0];
-                sjv_normal.y = (float)data.vertex_normal_list[i]->e[1];
-                sjv_normal.z = (float)data.vertex_normal_list[i]->e[2];            
+            if (includenormals) {
+                normal.x = (float)data.vertex_normal_list[i]->e[0];
+                normal.y = (float)data.vertex_normal_list[i]->e[1];
+                normal.z = (float)data.vertex_normal_list[i]->e[2];            
             }
 
-            if (sjv_includetextures) {
-                sjv_texture.x = (float)data.vertex_texture_list[i]->e[0];
-                sjv_texture.y = (float)data.vertex_texture_list[i]->e[1];
+            if (includetextures) {
+                texture.x = (float)data.vertex_texture_list[i]->e[0];
+                texture.y = (float)data.vertex_texture_list[i]->e[1];
             }
 
     --c--
