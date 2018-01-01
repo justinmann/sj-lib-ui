@@ -33,7 +33,7 @@ vertexBuffer!vertex(
         #functionStack(vertex, getRawSize)(&vertexsize);
         char* t = malloc(vertexsize);
         char* buffer = t;
-        #functionStack(vertex, rawCopy)(vertex, buffer, &buffer);
+        #functionStack(vertex, rawCopy)(vertex, buffer, (void*)&buffer);
         vertex_buffer_push_back_vertices(_parent->buffer, t, 1);
         free(t);
         --c--
@@ -112,7 +112,7 @@ vertexBuffer!vertex(
         char* buffer = t;
         #type(vertex)* p = (#type(vertex)*)_this->vertices.data;
         for (int i = 0; i < _this->vertices.count; i++) {
-            #functionStack(vertex, rawCopy)(&p[i], buffer, &buffer);
+            #functionStack(vertex, rawCopy)(&p[i], buffer, (void*)&buffer);
         }
         vertex_buffer_push_back_vertices(_this->buffer, t, _this->vertices.count);
         free(t);
