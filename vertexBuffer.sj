@@ -33,7 +33,7 @@ vertexBuffer!vertex(
         #functionStack(vertex, getRawSize)(&vertexsize);
         char* t = malloc(vertexsize);
         char* buffer = t;
-        #functionStack(vertex, rawCopy)(vertex, buffer, &buffer);
+        #functionStack(vertex, rawCopy)(vertex, buffer, (void*)&buffer);
         vertex_buffer_push_back_vertices(_parent->buffer, t, 1);
         free(t);
         --c--
