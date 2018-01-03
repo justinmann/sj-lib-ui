@@ -155,8 +155,8 @@ sphereVertexBuffer(
 }
 
 --cfunction--
-#include(<lib/ui/obj_parser.h>)
-##include <lib/ui/obj_parser.c>
+#include(<lib/sj-lib-ui/obj_parser.h>)
+##include <lib/sj-lib-ui/obj_parser.c>
 --cfunction--
 
 vertexBuffer_loadObj(filename : 'string) {

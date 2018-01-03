@@ -1,4 +1,4 @@
-fadeShader : shader("shaders/v3f-t2f.vert", "shaders/fade.frag")
+fadeShader : shader("assets/sj-lib-ui/shaders/v3f-t2f.vert", "assets/sj-lib-ui/shaders/fade.frag")
 
 @heap
 fadeEffect #effect (

@@ -1,8 +1,8 @@
-boxShader : shader("shaders/v3f-c4f.vert", "shaders/v3f-c4f.frag")
-imageShader : shader("shaders/v3f-t2f.vert", "shaders/v3f-t2f.frag")
-phongColorShader : shader("shaders/v3f-n3f-phong.vert", "shaders/v3f-n3f-phong.frag")
-phongTextureShader : shader("shaders/v3f-t2f-n3f-phong.vert", "shaders/v3f-t2f-n3f-phong.frag")
-textShader : shader("shaders/v3f-t2f-c4f.vert", "shaders/v3f-t2f-c4f.frag")
+boxShader : shader("assets/sj-lib-ui/shaders/v3f-c4f.vert", "assets/sj-lib-ui/shaders/v3f-c4f.frag")
+imageShader : shader("assets/sj-lib-ui/shaders/v3f-t2f.vert", "assets/sj-lib-ui/shaders/v3f-t2f.frag")
+phongColorShader : shader("assets/sj-lib-ui/shaders/v3f-n3f-phong.vert", "assets/sj-lib-ui/shaders/v3f-n3f-phong.frag")
+phongTextureShader : shader("assets/sj-lib-ui/shaders/v3f-t2f-n3f-phong.vert", "assets/sj-lib-ui/shaders/v3f-t2f-n3f-phong.frag")
+textShader : shader("assets/sj-lib-ui/shaders/v3f-t2f-c4f.vert", "assets/sj-lib-ui/shaders/v3f-t2f-c4f.frag")
 
 shader(
     vertex : 'string

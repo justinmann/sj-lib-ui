@@ -1,6 +1,6 @@
 style(
     getFont()'heap font {
-        font_load("assets/arial.ttf", 24.0f)
+        font_load("assets/sj-lib-ui/fonts/arial.ttf", 24.0f)
     }
 ) { this }
 

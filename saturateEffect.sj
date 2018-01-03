@@ -1,4 +1,4 @@
-saturateShader : shader("shaders/v3f-t2f.vert", "shaders/saturate.frag")
+saturateShader : shader("assets/sj-lib-ui/shaders/v3f-t2f.vert", "assets/sj-lib-ui/shaders/saturate.frag")
 
 saturateEffect #effect (
     amount := 1.0f

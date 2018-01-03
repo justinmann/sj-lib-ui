@@ -1,5 +1,5 @@
-blurHorizontalShader : shader("shaders/v3f-t2f.vert", "shaders/blur-horizontal.frag")
-blurVerticalShader : shader("shaders/v3f-t2f.vert", "shaders/blur-vertical.frag")
+blurHorizontalShader : shader("assets/sj-lib-ui/shaders/v3f-t2f.vert", "assets/sj-lib-ui/shaders/blur-horizontal.frag")
+blurVerticalShader : shader("assets/sj-lib-ui/shaders/v3f-t2f.vert", "assets/sj-lib-ui/shaders/blur-vertical.frag")
 
 blurEffect #effect (
     radius := 0.0f
