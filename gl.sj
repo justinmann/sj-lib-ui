@@ -176,7 +176,7 @@ glBindTexture(t : 'glTexture, texture : 'texture) {
 
 glGetUniformLocation(shader : 'shader, name : 'string) {
     --c--
-    int result = glGetUniformLocation(shader->id, (char*)name->data.data);
+    int result = glGetUniformLocation(shader->id, string_char(name));
     #return(i32, result);
     --c--
 }

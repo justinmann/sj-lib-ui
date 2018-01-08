@@ -12,7 +12,7 @@ shader(
     --cvar--
 ) {
     --c--
-    _this->id = shader_load((char*)_this->vertex.data.data, (char*)_this->pixel.data.data);
+    _this->id = shader_load(string_char(&_this->vertex), string_char(&_this->pixel));
     --c--
     this
 } copy {

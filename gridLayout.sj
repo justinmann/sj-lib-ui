@@ -74,9 +74,9 @@ gridLayout #element (
         rowStarUnit : if rowStars > 0 { (innerRect.h - rowFixed) / rowStars } else { 0 }
         rowStarRemainder := if rowStars > 0 { (innerRect.h - rowFixed) % rowStars } else { 0 }
 
-        yPos : array!i32(rows.count + 1)
+        yPos : array.create!i32(rows.count + 1, 0)
         y := innerRect.y
-        yPos.initAt(0, y)
+        yPos[0] = y
         for r : 0 to rows.count {
             row : rows[r]
             if row.unitType == gridUnitType.star {
@@ -86,7 +86,7 @@ gridLayout #element (
             } else {
                 y += row.amount
             }
-            yPos.initAt(r + 1, y)
+            yPos[r + 1] = y
         }
             
         colFixed := 0
@@ -103,9 +103,9 @@ gridLayout #element (
         colStarUnit : if colStars > 0 { (innerRect.w - colFixed) / colStars } else { 0 }
         colStarRemainder := if colStars > 0 { (innerRect.w - colFixed) % colStars } else { 0 }
 
-        xPos : array!i32(cols.count + 1)
+        xPos : array.create!i32(cols.count + 1, 0)
         x := innerRect.x
-        xPos.initAt(0, x)
+        xPos[0] = x
         for c : 0 to cols.count {
             col : cols[c]
             if col.unitType == gridUnitType.star {
@@ -115,7 +115,7 @@ gridLayout #element (
             } else {
                 x += col.amount
             }
-            xPos.initAt(c + 1, x)
+            xPos[c + 1] = x
         }
 
         rNext := 0

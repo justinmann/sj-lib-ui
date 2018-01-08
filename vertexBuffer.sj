@@ -99,22 +99,22 @@ vertexBuffer!vertex(
     }
 ) { 
     --c--
-    _this->buffer = vertex_buffer_new((char*)_this->format.data.data);
-    if (_this->indices.count > 0) {
-        vertex_buffer_push_back_indices(_this->buffer, (GLuint*)_this->indices.data, _this->indices.count);
+    _this->buffer = vertex_buffer_new(string_char(&_this->format));
+    if (((sjs_array*)_this->indices.v)->count > 0) {
+        vertex_buffer_push_back_indices(_this->buffer, (GLuint*)((sjs_array*)_this->indices.v)->data, ((sjs_array*)_this->indices.v)->count);
     }
 
-    if (_this->vertices.count > 0) {
+    if (((sjs_array*)_this->vertices.v)->count > 0) {
         int vertexSize;
         #functionStack(vertex, getRawSize)(&vertexSize);
-        int verticesSize = _this->vertices.count * vertexSize;
+        int verticesSize = ((sjs_array*)_this->vertices.v)->count * vertexSize;
         char* t = malloc(verticesSize);
         char* buffer = t;
-        #type(vertex)* p = (#type(vertex)*)_this->vertices.data;
-        for (int i = 0; i < _this->vertices.count; i++) {
+        #type(vertex)* p = (#type(vertex)*)((sjs_array*)_this->vertices.v)->data;
+        for (int i = 0; i < ((sjs_array*)_this->vertices.v)->count; i++) {
             #functionStack(vertex, rawCopy)(&p[i], buffer, (void*)&buffer);
         }
-        vertex_buffer_push_back_vertices(_this->buffer, t, _this->vertices.count);
+        vertex_buffer_push_back_vertices(_this->buffer, t, ((sjs_array*)_this->vertices.v)->count);
         free(t);
     }
     --c--

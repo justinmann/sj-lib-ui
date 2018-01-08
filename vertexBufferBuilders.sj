@@ -105,7 +105,7 @@ sphereVertexBuffer(
     origin : vec3(0.0f, 0.0f, 0.0f)
     radius : vec3(1.0f, 1.0f, 1.0f)
 ) {
-    vertices : array!vertex_location_texture_normal((slices + 1) * (wedges + 1))
+    vertices : array.create!vertex_location_texture_normal((slices + 1) * (wedges + 1), vertex_location_texture_normal())
     for slice : 0 to slices + 1 {
         tv : slice as f32 / slices as f32
         theta : f32_pi * slice as f32 / slices as f32 + f32_pi
@@ -123,11 +123,11 @@ sphereVertexBuffer(
                     texture : vec2(tu, tv)
                     normal : normal.normalize())
 
-            vertices.initAt(slice * (wedges + 1) + wedge, v)
+            vertices[slice * (wedges + 1) + wedge] = v
         }
     }
 
-    indices : array!i32(slices * wedges * 6)
+    indices : array.create!i32(slices * wedges * 6, 0)
     for slice : 0 to slices {
         for wedge : 0 to wedges {
             wedge0 : wedge
@@ -138,12 +138,12 @@ sphereVertexBuffer(
             index2 : ((slice + 1) * (wedges + 1)) + wedge1
             index3 : ((slice + 1) * (wedges + 1)) + wedge0
 
-            indices.initAt((slice * wedges + wedge) * 6 + 0, index0)
-            indices.initAt((slice * wedges + wedge) * 6 + 1, index1)
-            indices.initAt((slice * wedges + wedge) * 6 + 2, index2)
-            indices.initAt((slice * wedges + wedge) * 6 + 3, index2)
-            indices.initAt((slice * wedges + wedge) * 6 + 4, index3)
-            indices.initAt((slice * wedges + wedge) * 6 + 5, index0)
+            indices[(slice * wedges + wedge) * 6 + 0] = index0
+            indices[(slice * wedges + wedge) * 6 + 1] = index1
+            indices[(slice * wedges + wedge) * 6 + 2] = index2
+            indices[(slice * wedges + wedge) * 6 + 3] = index2
+            indices[(slice * wedges + wedge) * 6 + 4] = index3
+            indices[(slice * wedges + wedge) * 6 + 5] = index0
         }
     }
 
@@ -170,7 +170,7 @@ vertexBuffer_loadObj(filename : 'string) {
     includeTextures := true
     --c--
     obj_scene_data data = { 0 };
-    if (parse_obj_scene(&data, (char*)filename->data.data)) {
+    if (parse_obj_scene(&data, string_char(filename))) {
         for (int i = 0; i < data.face_count; i++) {
             if (data.face_list[i]->vertex_count != 3) {
                 printf("warn: do not support obj with non-triangles\n");
@@ -230,11 +230,7 @@ vertexBuffer_loadObj(filename : 'string) {
 
     // If file does not provide normals then compute them
     if !includeNormals {
-        normals : array!vec3(vertices.count)
-        for i : 0 to vertices.count {
-            normals.initAt(i, vec3())
-        }
-
+        normals : array.create!vec3(vertices.count, vec3())
         for i : 0 to indices.count / 3 {
             i1 : indices[i * 3 + 0]
             i2 : indices[i * 3 + 1]
@@ -286,7 +282,7 @@ vertexBuffer_loadObj(filename : 'string) {
 
     vertexBuffer!vertex_location_texture_normal(
         format : vertex_location_texture_normal_format
-        indices : indices.array
-        vertices : vertices.array
+        indices : indices.arr
+        vertices : vertices.arr
     )
 }

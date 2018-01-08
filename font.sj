@@ -54,7 +54,7 @@ font(
         w := 0
         h := 0
         --c--
-        vec2 size = get_text_size(_parent->font, (char*)str->data.data);
+        vec2 size = get_text_size(_parent->font, string_char(str));
         w = (int)size.x;
         h = (int)size.y;
         --c--
@@ -63,7 +63,7 @@ font(
 ) {
     --c--
     _this->atlas = texture_atlas_new( 512, 512, 3 );
-    _this->font = texture_font_new_from_file(_this->atlas, _this->size, (char*)_this->src.data.data);
+    _this->font = texture_font_new_from_file(_this->atlas, _this->size, string_char(&_this->src));
     if (_this->font == 0) {
         printf("texture_font_new_from_file Error\n");
     }   
