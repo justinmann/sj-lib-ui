@@ -3,7 +3,7 @@ mouse_captureElement := empty'heap #element
 mouse_capture(element : 'heap #element) {
     mouse_captureElement = valid(element)
     --c--
-    SDL_CaptureMouse(true);
+    SDL_CaptureMouse(SDL_TRUE);
     --c--
 }
 
@@ -22,7 +22,7 @@ mouse_release(element : 'heap #element) {
             console.writeLine("release done")
             mouse_captureElement = empty'#element
             --c--
-            SDL_CaptureMouse(false);
+            SDL_CaptureMouse(SDL_FALSE);
             --c--
         }
     }

@@ -108,11 +108,11 @@ vertexBuffer!vertex(
         int vertexSize;
         #functionStack(vertex, getRawSize)(&vertexSize);
         int verticesSize = ((sjs_array*)_this->vertices.v)->count * vertexSize;
-        char* t = malloc(verticesSize);
+        char* t = (char*)malloc(verticesSize);
         char* buffer = t;
         #type(vertex)* p = (#type(vertex)*)((sjs_array*)_this->vertices.v)->data;
         for (int i = 0; i < ((sjs_array*)_this->vertices.v)->count; i++) {
-            #functionStack(vertex, rawCopy)(&p[i], buffer, (void*)&buffer);
+            #functionStack(vertex, rawCopy)(&p[i], buffer, (void**)&buffer);
         }
         vertex_buffer_push_back_vertices(_this->buffer, t, ((sjs_array*)_this->vertices.v)->count);
         free(t);
@@ -653,7 +653,7 @@ void
 vertex_buffer_print( vertex_buffer_t * self )
 {
     int i = 0;
-    static char *gltypes[9] = {
+    static const char *gltypes[9] = {
         "GL_BOOL",
         "GL_BYTE",
         "GL_UNSIGNED_BYTE",

@@ -158,7 +158,7 @@ vertex_attribute_new( GLchar * name,
     assert( size > 0 );
 
     attribute->name       = (GLchar *) strdup( name );
-    attribute->index      = -1;
+    attribute->index      = (GLuint)-1;
     attribute->size       = size;
     attribute->type       = type;
     attribute->normalized = normalized;
@@ -250,7 +250,7 @@ vertex_attribute_parse( char *format )
 void
 vertex_attribute_enable( vertex_attribute_t *attr )
 {
-    if( attr->index == -1 )
+    if( attr->index == (GLuint)-1 )
     {
         GLint program;
         glGetIntegerv( GL_CURRENT_PROGRAM, &program );
@@ -259,7 +259,7 @@ vertex_attribute_enable( vertex_attribute_t *attr )
             return;
         }
         attr->index = glGetAttribLocation( program, attr->name );
-        if( attr->index == -1 )
+        if( attr->index == (GLuint)-1 )
         {
             return;
         }

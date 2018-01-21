@@ -110,7 +110,11 @@ char *repl_str(const char *str, const char *from, const char *to) {
         /* Increase the cache size when necessary. */
         if (cache_sz < count) {
             cache_sz += cache_sz_inc;
-            pos_cache_tmp = realloc(pos_cache, sizeof(*pos_cache) * cache_sz);
+##if (__STDC_VERSION__ >= 199901L)
+            pos_cache_tmp = (uintptr_t*)realloc(pos_cache, sizeof(*pos_cache) * cache_sz);
+##else
+            pos_cache_tmp = (ptrdiff_t*)realloc(pos_cache, sizeof(*pos_cache) * cache_sz);
+##endif
             if (pos_cache_tmp == NULL) {
                 goto end_repl_str;
             } else pos_cache = pos_cache_tmp;
@@ -131,7 +135,7 @@ char *repl_str(const char *str, const char *from, const char *to) {
         tolen = strlen(to);
         retlen = orglen + (tolen - fromlen) * count;
     } else  retlen = orglen;
-    ret = malloc(retlen + 1);
+    ret = (char*)malloc(retlen + 1);
     if (ret == NULL) {
         goto end_repl_str;
     }

@@ -166,6 +166,10 @@ typedef struct texture_glyph_t
 
 } texture_glyph_t;
 
+typedef enum location_enum_td {
+    TEXTURE_FONT_FILE = 0,
+    TEXTURE_FONT_MEMORY,
+} location_enum;
 
 typedef struct texture_atlas_t texture_atlas_td; 
 /**
@@ -186,10 +190,7 @@ typedef struct texture_font_t
     /**
      * font location
      */
-    enum {
-        TEXTURE_FONT_FILE = 0,
-        TEXTURE_FONT_MEMORY,
-    } location;
+    location_enum location;
 
     union {
         /**
@@ -479,7 +480,7 @@ texture_font_load_face(texture_font_t *self, float size,
 
     case TEXTURE_FONT_MEMORY:
         error = FT_New_Memory_Face(*library,
-            self->memory.base, self->memory.size, 0, face);
+            (const FT_Byte*)self->memory.base, self->memory.size, 0, face);
         break;
     }
 
@@ -687,7 +688,7 @@ texture_font_new_from_file(texture_atlas_t *atlas, const float pt_size,
 
     assert(filename);
 
-    self = calloc(1, sizeof(*self));
+    self = (texture_font_t*)calloc(1, sizeof(*self));
     if (!self) {
         fprintf(stderr,
                 "line %d: No more memory for allocating data\n", __LINE__);
@@ -718,7 +719,7 @@ texture_font_new_from_memory(texture_atlas_t *atlas, float pt_size,
     assert(memory_base);
     assert(memory_size);
 
-    self = calloc(1, sizeof(*self));
+    self = (texture_font_t*)calloc(1, sizeof(*self));
     if (!self) {
         fprintf(stderr,
                 "line %d: No more memory for allocating data\n", __LINE__);
@@ -775,7 +776,7 @@ texture_font_find_glyph( texture_font_t * self,
         glyph = *(texture_glyph_t **) vector_get( self->glyphs, i );
         // If codepoint is -1, we don't care about outline type or thickness
         if( (glyph->codepoint == ucodepoint) &&
-            ((ucodepoint == -1) ||
+            ((ucodepoint == (uint32_t)-1) ||
              ((glyph->rendermode == self->rendermode) &&
               (glyph->outline_thickness == self->outline_thickness)) ))
         {
@@ -826,10 +827,10 @@ texture_font_load_glyph( texture_font_t * self,
     {
         ivec4 region = texture_atlas_get_region( self->atlas, 5, 5 );
         texture_glyph_t * glyph = texture_glyph_new( );
-        static unsigned char data[4*4*3] = {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-                                            -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-                                            -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
-                                            -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
+        static unsigned char data[4*4*3] = {255,255,255,255,255,255,255,255,255,255,255,255,
+                                            255,255,255,255,255,255,255,255,255,255,255,255,
+                                            255,255,255,255,255,255,255,255,255,255,255,255,
+                                            255,255,255,255,255,255,255,255,255,255,255,255};
         if ( region.x < 0 )
         {
             fprintf( stderr, "Texture atlas is full (line %d)\n",  __LINE__ );
@@ -1006,7 +1007,7 @@ cleanup_stroker:
     x = region.x;
     y = region.y;
 
-    unsigned char *buffer = calloc( tgt_w * tgt_h * self->atlas->depth, sizeof(unsigned char) );
+    unsigned char *buffer = (unsigned char *)calloc( tgt_w * tgt_h * self->atlas->depth, sizeof(unsigned char) );
 
     unsigned char *dst_ptr = buffer + (padding.top * tgt_w + padding.left) * self->atlas->depth;
     unsigned char *src_ptr = ft_bitmap.buffer;
@@ -1116,7 +1117,7 @@ texture_font_enlarge_atlas( texture_font_t * self, size_t width_new,
     size_t height_old = ta->height;
     //allocate new buffer
     unsigned char* data_old = ta->data;
-    ta->data = calloc(1,width_new*height_new * sizeof(char)*ta->depth);
+    ta->data = (unsigned char *)calloc(1,width_new*height_new * sizeof(char)*ta->depth);
     //update atlas size
     ta->width = width_new;
     ta->height = height_new;
